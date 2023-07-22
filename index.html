@@ -1,76 +1,99 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html>
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
-
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
+
 <body>
-  <h3>Comments table :D</h3>
-  <form id="create-form">
-    <input type="text" id="title" class="col-12 mb-3" >
-    <br>
-    <input type="text" id="description" class="col-12 mb-3" required>
-    <br>
-    <input type="text" id="author"  class="col-12 mb-3" required>
-    <br>
-    <button type="submit" class="btn btn-danger" class="col-12 mb-3">Registro :D</button>
-  </form>
+    <div class="container mx-auto mt-8">
+        <h1 class="text-3xl font-bold text-green-500">
+            Añade tus comentarios
+        </h1>
+        <div>
+            <label for="email" class="block text-sm text-gray-500 dark:text-gray-300">Titulo</label>
 
-    <h3>Lista comentarios</h3>
-    <table class="table">
+            <input type="email"
+                class="mt-2 block w-full placeholder-gray-400/70 rounded-lg border border-gray-200 bg-white px-5 py-2.5 text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:focus:border-blue-300" />
+        </div>
+        <div>
+            <label for="email" class="block text-sm text-gray-500 dark:text-gray-300">Descripcion</label>
 
-        <thead>
+            <input type="email"
+                class="mt-2 block w-full placeholder-gray-400/70 rounded-lg border border-gray-200 bg-white px-5 py-2.5 text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:focus:border-blue-300" />
+        </div>
+        <div>
+            <label for="email" class="block text-sm text-gray-500 dark:text-gray-300">Author</label>
 
-          <tr>
-            <th scope="col">ID</th>
-            <th scope="col">Title</th>
-            <th scope="col">Description</th>
-            <th scope="col">Author</th>
-            <th scope="col">Created at</th>
-          </tr>
+            <input type="email"
+                class="mt-2 block w-full placeholder-gray-400/70 rounded-lg border border-gray-200 bg-white px-5 py-2.5 text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:focus:border-blue-300" />
+        </div>
+        <br>
+        <a class="group relative inline-flex items-center overflow-hidden rounded border border-current px-8 py-3 text-green-600 focus:outline-none focus:ring active:text-green-500"
+            href="">
+            <span class="absolute -end-full transition-all group-hover:end-4">
+                <svg class="h-5 w-5 rtl:rotate-180" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+            </span>
 
-        </thead>
-
-        <tbody id="tbody">
-
-
-
-        </tbody>
-
-      </table>
-
-
-      <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
-      <script>
-        $("#create-form").submit(function(e) {
-            e.preventDefault();
-            $.ajax({
-                type: "POST",
-                url: "http://localhost:5207/api/Comment/Store",
-                contentType: 'application/json;charset=UTF-8',
-                data:JSON.stringify({
-                    title: $("#title").val(),
-                    description: $("#description").val(),
-                    author : $("#author").val(),
-                    createdAt: new Date(),
-                })
-            })
-            .done(function (response) {
-                console.log(response);
-                alert("Registro exitoso");
-            })
-            .fail(function (jqXHR, textReponse) {
-                alert("Error");
+            <span class="text-sm font-medium transition-all group-hover:me-4">
+                Registrar
+            </span>
+        </a>
+        <div class="overflow-x-auto">
+            <table class="min-w-full divide-y-2 divide-gray-200 bg-white text-sm">
+              <thead class="ltr:text-left rtl:text-right">
+                <tr>
+                  <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
+                    Titulo
+                  </th>
+                  <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
+                    Descripcion
+                  </th>
+                  <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
+                    Author
+                  </th>
+                  <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
+                    Creado por
+                  </th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-gray-200" id="container">
                 
-            })
-        })
-      </script>
-    <script src="index.js"> </script>
+              </tbody>
+            </table>
+          </div>
+    </div>
+    <script src="index.js"></script>
+    <script>
+      $("#create-form").submit(function(e) {
+          e.preventDefault();
+          $.ajax({
+              type: "POST",
+              url: "http://localhost:5207/api/Comment/Store",
+              contentType: 'application/json;charset=UTF-8',
+              data:JSON.stringify({
+                  title: $("#title").val(),
+                  description: $("#description").val(),
+                  author : $("#author").val(),
+                  createdAt: new Date(),
+              })
+          })
+          .done(function (response) {
+              console.log(response);
+              alert("Registro exitoso");
+          })
+          .fail(function (jqXHR, textReponse) {
+              alert("Error");
+              
+          })
+      })
+    </script>
 </body>
+
 </html>

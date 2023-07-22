@@ -1,24 +1,32 @@
-async function obtenerComentarios(){
-    const response = await fetch('http://localhost:5207/api/Comment/Index')
-    return await response.json();
-}
+const resp = fetch('http://localhost:5097/api/Comment');
 
-obtenerComentarios().then((comentarios)=>{
+resp.then(response => response.json())
+    .then((json) => {
+        console.log(json);
+        let htmlX = "";
+        let content = document.getElementById('container')
 
-    Object.entries(comentarios).forEach(([key, value]) => {
-        const tabla = document.getElementById('tbody');
-        tabla.innerHTML += `
-        <tbody>
-              <tr>
-                <td>${value.id}</td>
-                <td>${value.title}</td>
-                <td>${value.description}</td>
-                <td>${value.author}</td>
-                <td>${value.createdAt}</td>
-              </tr>
-        </tbody>` 
-    })
-    
-})
+        json.forEach(element => {
+            let htlmCard = `
+            <tr>
+            <td class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
+            ${element.title}
+            </td>
+            <td class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
+            ${element.description}
+            </td>
+            <td class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
+            ${element.author}
+            </td>
+            <td class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
+            ${element.createdAt}
+            </td>
+            
+            </tr>
+      </table>
+    `
+        htmlX = htmlX + htlmCard;
+        });
 
-
+        content.innerHTML = htmlX;
+    });
